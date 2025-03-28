@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="refresh" content="0;url=http://192.168.100.4:3000">
+    <title>正在加载产品管理系统...</title>
+    <style>
+        body {
+            font-family: 'Baloo 2', cursive;
+            background-color: #fff5e6;
+            color: #ff6b6b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <h2>正在加载产品管理系统...</h2>
+        <p>如果没有自动跳转，请<a href="http://192.168.100.4:3000">点击这里</a></p>
+    </div>
+</body>
+</html>

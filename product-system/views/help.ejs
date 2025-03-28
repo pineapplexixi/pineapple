@@ -1,0 +1,75 @@
+<%- include('partials/header') %>
+
+<section class="help-section">
+  <div class="back-link">
+    <a href="/" class="btn">&larr; 返回首页</a>
+  </div>
+  
+  <div class="help-header">
+    <h2>菠萝产品管理系统使用说明</h2>
+  </div>
+  
+  <div class="help-content">
+    <div class="help-card">
+      <h3>基本功能</h3>
+      <ul>
+        <li><strong>搜索产品</strong> - 在首页的搜索框中输入产品型号、分类或任何信息即可快速找到产品</li>
+        <li><strong>添加产品</strong> - 点击首页右上角的"添加产品"按钮来新增产品</li>
+        <li><strong>编辑产品</strong> - 在产品卡片中点击"编辑"按钮修改产品信息</li>
+        <li><strong>删除产品</strong> - 在产品卡片中点击"删除"按钮永久移除产品</li>
+      </ul>
+    </div>
+    
+    <div class="help-card">
+      <h3>产品字段说明</h3>
+      <ul>
+        <li><strong>型号</strong> - 产品的唯一标识符，必填</li>
+        <li><strong>分类</strong> - 产品的分类或类别，建议填写</li>
+        <li><strong>价格</strong> - 产品的售价</li>
+        <li><strong>其他字段</strong> - 可根据产品特性自由添加其他字段，如尺寸、材质、颜色等</li>
+      </ul>
+    </div>
+    
+    <div class="help-card">
+      <h3>搜索技巧</h3>
+      <ul>
+        <li>搜索框支持即时搜索，输入内容后自动显示结果</li>
+        <li>可以使用型号、分类、价格等任何字段进行搜索</li>
+        <li>搜索结果中匹配的文本会被高亮显示</li>
+        <li>搜索时匹配型号的结果会排在最前面</li>
+      </ul>
+    </div>
+    
+    <div class="help-card">
+      <h3>批量操作 - 导入导出</h3>
+      <ul>
+        <li>点击导航栏的"导入/导出"进入批量操作页面</li>
+        <li><strong>导入Excel</strong> - 上传包含产品信息的Excel文件，系统会自动识别字段</li>
+        <li><strong>导出Excel</strong> - 将所有产品数据导出为Excel文件，方便批量编辑</li>
+        <li>Excel文件的第一行应包含字段名称，如"型号"、"分类"、"价格"等</li>
+      </ul>
+    </div>
+    
+    <div class="help-card">
+      <h3>编辑产品技巧</h3>
+      <ul>
+        <li>型号一旦创建后不可修改，请谨慎填写</li>
+        <li>可以随时添加或删除产品字段</li>
+        <li>在编辑模式下点击"添加字段"按钮来添加新的产品属性</li>
+        <li>点击字段旁边的"×"按钮可以删除不需要的字段</li>
+      </ul>
+    </div>
+    
+    <div class="help-card">
+      <h3>注意事项</h3>
+      <ul>
+        <li>型号是唯一标识，不能重复</li>
+        <li>分类和价格是重要信息，会在产品卡片中突出显示</li>
+        <li>系统支持多人同时访问，但同时编辑同一产品可能会导致数据覆盖</li>
+        <li>产品图片功能暂不支持，后续版本将添加</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

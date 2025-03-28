@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍍链接收藏</title>
+    <link rel="stylesheet" href="collecto.css">
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 同步状态指示器 */
+        .sync-status {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .sync-status:hover {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .sync-status.syncing i {
+            animation: spin 1s linear infinite;
+            color: #ffde59;
+        }
+
+        .sync-status.synced {
+            color: #4CAF50;
+        }
+
+        .sync-status.error {
+            color: #F44336;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 导入/导出控件 */
+        .import-export-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            background-color: #fff;
+            border: 2px solid #ffde59;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-btn:hover {
+            background-color: #ffde59;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 自定义链接卡片动画 */
+        .custom-link {
+            position: relative;
+        }
+
+        .custom-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: 2px solid #ff6b6b;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .custom-link:hover::before {
+            opacity: 0.5;
+            top: -3px;
+            left: -3px;
+            width: calc(100% + 6px);
+            height: calc(100% + 6px);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="header-title">
+            <span class="orange-icon">🍊</span>
+            <span class="pineapple-icon">🍍</span>
+           链接收藏
+            <span class="pineapple-icon">🍍</span>
+            <span class="orange-icon">🍊</span>
+        </h1>
+        <p class="header-subtitle">收集有趣、有用的网站链接</p>
+    </div>
+
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索链接...">
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="category-filters">
+            <button class="category-btn active" data-category="all">全部</button>
+            <button class="category-btn" data-category="tools">工具</button>
+            <button class="category-btn" data-category="learning">学习</button>
+            <button class="category-btn" data-category="entertainment">娱乐</button>
+            <button class="category-btn" data-category="shopping">购物</button>
+            <button class="category-btn" data-category="social">社交</button>
+            <button class="category-btn" data-category="other">其他</button>
+        </div>
+        
+        <!-- 同步状态指示器 -->
+        <div id="syncStatus" class="sync-status">
+            <i class="fas fa-sync"></i> 准备同步...
+        </div>
+        
+        <!-- 导入/导出按钮 -->
+        <div class="import-export-controls">
+            <button id="exportBtn" class="action-btn"><i class="fas fa-download"></i> 导出链接</button>
+            <label for="importFile" class="action-btn"><i class="fas fa-upload"></i> 导入链接</label>
+            <input type="file" id="importFile" accept=".json" style="display: none;">
+        </div>
+    </div>
+
+    <div class="container" id="linksContainer">
+        <!-- 工具类 -->
+        <div class="link-card" data-category="tools">
+            <div class="card-icon"><i class="fas fa-calculator"></i></div>
+            <div class="card-content">
+                <h3>菠萝电商计算器</h3>
+                <p>便捷的多功能电商计算工具</p>
+                <div class="card-tags">
+                    <span class="tag">工具</span>
+                    <span class="tag">电商</span>
+                </div>
+            </div>
+            <a href="#" class="card-link" target="_blank"></a>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+
+        <div class="link-card" data-category="tools">
+            <div class="card-icon"><i class="fas fa-edit"></i></div>
+            <div class="card-content">
+                <h3>在线笔记工具</h3>
+                <p>简洁高效的云端笔记应用</p>
+                <div class="card-tags">
+                    <span class="tag">工具</span>
+                    <span class="tag">写作</span>
+                </div>
+            </div>
+            <a href="#" class="card-link" target="_blank"></a>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+
+        <!-- 学习类 -->
+        <div class="link-card" data-category="learning">
+            <div class="card-icon"><i class="fas fa-code"></i></div>
+            <div class="card-content">
+                <h3>编程学习平台</h3>
+                <p>从入门到精通的编程课程</p>
+                <div class="card-tags">
+                    <span class="tag">学习</span>
+                    <span class="tag">编程</span>
+                </div>
+            </div>
+            <a href="#" class="card-link" target="_blank"></a>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+
+        <div class="link-card" data-category="learning">
+            <div class="card-icon"><i class="fas fa-language"></i></div>
+            <div class="card-content">
+                <h3>语言学习工具</h3>
+                <p>高效掌握外语的在线平台</p>
+                <div class="card-tags">
+                    <span class="tag">学习</span>
+                    <span class="tag">语言</span>
+                </div>
+            </div>
+            <a href="#" class="card-link" target="_blank"></a>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+
+        <!-- 娱乐类 -->
+        <div class="link-card" data-category="entertainment">
+            <div class="card-icon"><i class="fas fa-film"></i></div>
+            <div class="card-content">
+                <h3>影视推荐平台</h3>
+                <p>发现高质量电影与剧集</p>
+                <div class="card-tags">
+                    <span class="tag">娱乐</span>
+                    <span class="tag">影视</span>
+                </div>
+            </div>
+            <a href="#" class="card-link" target="_blank"></a>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+
+        <div class="link-card" data-category="entertainment">
+            <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+            <div class="card-content">
+                <h3>休闲游戏网站</h3>
+                <p>放松心情的小游戏合集</p>
+                <div class="card-tags">
+                    <span class="tag">娱乐</span>
+                    <span class="tag">游戏</span>
+                </div>
+            </div>
+            <a href="#" class="card-link" target="_blank"></a>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+
+        <!-- 添加链接按钮 -->
+        <div class="add-link-card" id="addLinkBtn">
+            <div class="add-icon">+</div>
+            <p>添加新链接</p>
+        </div>
+    </div>
+
+    <!-- 添加链接弹窗 -->
+    <div class="modal" id="addLinkModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>添加新链接</h2>
+            <form id="addLinkForm">
+                <div class="form-group">
+                    <label>网站名称：</label>
+                    <input type="text" id="siteName" required>
+                </div>
+                <div class="form-group">
+                    <label>网址链接：</label>
+                    <input type="url" id="siteUrl" required>
+                </div>
+                <div class="form-group">
+                    <label>网站描述：</label>
+                    <input type="text" id="siteDesc" required>
+                </div>
+                <div class="form-group">
+                    <label>分类：</label>
+                    <select id="siteCategory" required>
+                        <option value="tools">工具</option>
+                        <option value="learning">学习</option>
+                        <option value="entertainment">娱乐</option>
+                        <option value="shopping">购物</option>
+                        <option value="social">社交</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>图标：</label>
+                    <input type="text" id="siteIcon" placeholder="fa-globe">
+                    <p class="hint">提示：输入Font Awesome图标名称，如fa-globe、fa-book等</p>
+                </div>
+                <div class="form-group">
+                    <label>标签（用逗号分隔）：</label>
+                    <input type="text" id="siteTags" placeholder="例如：工具,免费,热门">
+                </div>
+                <button type="submit" class="submit-btn">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-container">
+        <div class="footer-content">
+            <div class="footer-logo">🍍</div>
+            <div class="footer-text">
+                <p>菠萝链接收藏 © 2025</p>
+                <p>由 <span class="footer-author">菠萝开发团队</span> 倾情制作</p>
+                <p>版本: 1.0.0 | 最后更新: 2025-03-27</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 脚本配置 -->
+    <script>
+        // PHP API 配置
+        const API_BASE_URL = './'; // 当前目录
+        const SAVE_LINKS_URL = API_BASE_URL + 'php-backend.php';
+        const GET_LINKS_URL = API_BASE_URL + 'php-get-links.php';
+    </script>
+    
+    <!-- 引入JavaScript文件 -->
+    <script src="revised.js"></script>
+    
+    <!-- 导入/导出功能的事件处理 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 导出按钮
+            document.getElementById('exportBtn').addEventListener('click', function() {
+                if (typeof exportLinks === 'function') {
+                    exportLinks();
+                } else {
+                    alert('导出功能未加载，请检查脚本文件');
+                }
+            });
+            
+            // 导入文件选择
+            document.getElementById('importFile').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    if (typeof importLinks === 'function') {
+                        importLinks(file);
+                    } else {
+                        alert('导入功能未加载，请检查脚本文件');
+                    }
+                    // 重置文件输入，允许再次选择同一文件
+                    e.target.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍍电商计算器测试版🍍</title>
+    <!-- 引入CSS文件 -->
+    <link rel="stylesheet" href="css-file-revised.css">
+</head>
+<body>
+    <div class="header">
+        <h1 class="header-title">
+            <span class="orange-icon">🍊</span>
+            <span class="pineapple-icon">🍍</span>
+            电商计算器测试版
+            <span class="pineapple-icon">🍍</span>
+            <span class="orange-icon">🍊</span>
+        </h1>
+    </div>
+
+    <div class="container">
+        <!-- 基本计算器 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon">📱</div>
+                基本计算器
+            </div>
+            <div class="calculator-screen" id="calculatorScreen">0</div>
+            <div class="calculator-buttons">
+                <button class="btn btn-clear" onclick="clearScreen()">AC</button>
+                <button class="btn btn-delete" onclick="deleteLastChar()">DEL</button>
+                <button class="btn btn-operator" onclick="addToScreen('%')">%</button>
+                <button class="btn btn-operator" onclick="addToScreen('/')">/</button>
+                
+                <button class="btn btn-number" onclick="addToScreen('7')">7</button>
+                <button class="btn btn-number" onclick="addToScreen('8')">8</button>
+                <button class="btn btn-number" onclick="addToScreen('9')">9</button>
+                <button class="btn btn-operator" onclick="addToScreen('*')">*</button>
+                
+                <button class="btn btn-number" onclick="addToScreen('4')">4</button>
+                <button class="btn btn-number" onclick="addToScreen('5')">5</button>
+                <button class="btn btn-number" onclick="addToScreen('6')">6</button>
+                <button class="btn btn-operator" onclick="addToScreen('-')">-</button>
+                
+                <button class="btn btn-number" onclick="addToScreen('1')">1</button>
+                <button class="btn btn-number" onclick="addToScreen('2')">2</button>
+                <button class="btn btn-number" onclick="addToScreen('3')">3</button>
+                <button class="btn btn-operator" onclick="addToScreen('+')">+</button>
+                
+                <button class="btn btn-number" onclick="addToScreen('0')" style="grid-column: span 2;">0</button>
+                <button class="btn btn-number" onclick="addToScreen('.')">.</button>
+                <button class="btn btn-equals" onclick="calculate()">=</button>
+            </div>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+
+        <!-- 重量转换 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon">⚖️</div>
+                重量转换
+                <div class="info-badge" data-tooltip="在不同重量单位之间进行转换">i</div>
+            </div>
+            <div class="input-group">
+                <label><span class="input-icon">⚖️</span> 克 (g):</label>
+                <input type="number" id="grams" class="form-control" placeholder="输入克" oninput="convertFromGrams(this.value)">
+            </div>
+            <div class="input-group">
+                <label><span class="input-icon">⚖️</span> 磅 (lb):</label>
+                <input type="number" id="pounds" class="form-control" placeholder="输入磅" oninput="convertFromPounds(this.value)">
+            </div>
+            <div class="input-group">
+                <label><span class="input-icon">⚖️</span> 盎司 (oz):</label>
+                <input type="number" id="ounces" class="form-control" placeholder="输入盎司" oninput="convertFromOunces(this.value)">
+            </div>
+            <div class="conversion-rule">
+                <div class="note" style="text-align: left; margin-top: 10px;">
+                    <strong>转换规则:</strong><br>
+                    1 磅 (lb) = 453.592 克 (g)<br>
+                    1 盎司 (oz) = 28.3495 克 (g)<br>
+                    1 磅 (lb) = 16 盎司 (oz)
+                </div>
+            </div>
+            <button class="clear-btn" onclick="clearWeightConversion()">
+                <span>🧹</span> 清除
+            </button>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+
+        <!-- 尺寸转换 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon">📏</div>
+                尺寸转换
+                <div class="info-badge" data-tooltip="计算体积并进行单位转换">i</div>
+            </div>
+            <div>
+                <label><span class="input-icon">📏</span> 长度转换:</label>
+                <div class="dimension-group">
+                    <div class="dimension-label">
+                        <span class="dimension-arrow">↔️</span> 厘米:
+                    </div>
+                    <div class="dimension-input">
+                        <input type="number" id="lengthCm" placeholder="厘米" oninput="convertLength('cm')">
+                    </div>
+                </div>
+                <div class="dimension-group">
+                    <div class="dimension-label">
+                        <span class="dimension-arrow">↔️</span> 英寸:
+                    </div>
+                    <div class="dimension-input">
+                        <input type="number" id="lengthInch" placeholder="英寸" oninput="convertLength('inch')">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label><span class="input-icon">📏</span> 宽度转换:</label>
+                <div class="dimension-group">
+                    <div class="dimension-label">
+                        <span class="dimension-arrow">↔️</span> 厘米:
+                    </div>
+                    <div class="dimension-input">
+                        <input type="number" id="widthCm" placeholder="厘米" oninput="convertWidth('cm')">
+                    </div>
+                </div>
+                <div class="dimension-group">
+                    <div class="dimension-label">
+                        <span class="dimension-arrow">↔️</span> 英寸:
+                    </div>
+                    <div class="dimension-input">
+                        <input type="number" id="widthInch" placeholder="英寸" oninput="convertWidth('inch')">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label><span class="input-icon">📏</span> 高度转换:</label>
+                <div class="dimension-group">
+                    <div class="dimension-label">
+                        <span class="dimension-arrow">↕️</span> 厘米:
+                    </div>
+                    <div class="dimension-input">
+                        <input type="number" id="heightCm" placeholder="厘米" oninput="convertHeight('cm')">
+                    </div>
+                </div>
+                <div class="dimension-group">
+                    <div class="dimension-label">
+                        <span class="dimension-arrow">↕️</span> 英寸:
+                    </div>
+                    <div class="dimension-input">
+                        <input type="number" id="heightInch" placeholder="英寸" oninput="convertHeight('inch')">
+                    </div>
+                </div>
+            </div>
+            <div class="conversion-rule">
+                <div class="note" style="text-align: left; margin-top: 10px;">
+                    <strong>转换规则:</strong><br>
+                    1 英寸 (in) = 2.54 厘米 (cm)<br>
+                    1 厘米 (cm) = 0.3937 英寸 (in)
+                </div>
+            </div>
+            <button class="clear-btn" onclick="clearDimensionConversion()">
+                <span>🧹</span> 清除
+            </button>
+            <div class="corner-pineapple">🍍</div>
+        </div>
+    </div>
+
+    <footer class="footer-container">
+        <div class="footer-content">
+            <div class="footer-logo">🍍</div>
+            <div class="footer-text">
+                <p>电商计算器 © 2025</p>
+                <p>由 <span class="footer-author">菠萝开发团队</span> 倾情制作</p>
+                <p>测试版本: 1.0.0 | 最后更新: 2025-03-27</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 引入JavaScript文件 -->
+    <script src="js-file-revised.js"></script>
+</body>
+</html>

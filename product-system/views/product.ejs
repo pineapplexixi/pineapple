@@ -1,0 +1,115 @@
+<%- include('partials/header') %>
+
+<section class="product-detail">
+  <div class="back-link">
+    <a href="/" class="btn">&larr; 返回列表</a>
+  </div>
+  
+  <div class="product-header">
+    <!-- 使用型号和分类作为主标题 -->
+    <h2>
+      <%= product.型号 || product.productId || '未知型号' %>
+      <% if (product.分类) { %> 
+        <span class="product-category-badge"><%= product.分类 %></span>
+      <% } %>
+    </h2>
+    <div class="product-actions">
+      <button id="editProductBtn" class="btn btn-primary" data-id="<%= product.productId || product.型号 %>">编辑</button>
+      <button id="deleteProductBtn" class="btn btn-danger" data-id="<%= product.productId || product.型号 %>">删除</button>
+    </div>
+  </div>
+  
+  <div class="product-info">
+    <!-- 型号信息放在最前面并突出显示 -->
+    <div class="info-item highlight">
+      <span class="info-label">产品型号:</span>
+      <span class="info-value"><%= product.型号 || product.productId || '未知' %></span>
+    </div>
+    
+    <!-- 分类信息突出显示 -->
+    <% if (product.分类 || product.类别 || product.category) { %>
+    <div class="info-item highlight">
+      <span class="info-label">产品分类:</span>
+      <span class="info-value"><%= product.分类 || product.类别 || product.category %></span>
+    </div>
+    <% } %>
+    
+    <!-- 价格信息突出显示 -->
+    <% if (product.价格) { %>
+    <div class="info-item highlight price">
+      <span class="info-label">价格:</span>
+      <span class="info-value"><%= product.价格 %></span>
+    </div>
+    <% } %>
+    
+    <!-- 其他所有属性 -->
+    <% 
+      const skipFields = ['productId', 'name', '型号', '分类', '类别', 'category', '价格'];
+      Object.entries(product).forEach(([key, value]) => {
+        if (!skipFields.includes(key) && value) { 
+    %>
+      <div class="info-item">
+        <span class="info-label"><%= key %>:</span>
+        <span class="info-value"><%= value %></span>
+      </div>
+    <% 
+        }
+      });
+    %>
+  </div>
+</section>
+
+<!-- 编辑产品模态框 -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>编辑产品</h2>
+    <form id="productForm">
+      <input type="hidden" id="productId" name="productId" value="<%= product.productId || product.型号 %>">
+      
+      <div class="form-group">
+        <label for="newProductId">产品型号:</label>
+        <input type="text" id="newProductId" name="型号" value="<%= product.型号 || product.productId || '' %>" disabled>
+      </div>
+      
+      <div class="form-group">
+        <label for="category">产品分类:</label>
+        <input type="text" id="category" name="分类" value="<%= product.分类 || product.类别 || product.category || '' %>">
+      </div>
+      
+      <div class="form-group">
+        <label for="price">价格:</label>
+        <input type="text" id="price" name="价格" value="<%= product.价格 || '' %>">
+      </div>
+      
+      <div id="dynamicFields">
+        <% Object.entries(product).forEach(([key, value]) => { %>
+          <% 
+            const skipEditFields = ['productId', 'name', '型号', '分类', '类别', 'category', '价格'];
+            if (!skipEditFields.includes(key) && value) { 
+          %>
+            <div class="form-group field-group">
+              <input type="text" value="<%= key %>" placeholder="字段名称">
+              <input type="text" value="<%= value %>" placeholder="字段值">
+              <button type="button" class="remove-field">&times;</button>
+            </div>
+          <% } %>
+        <% }); %>
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" id="addFieldBtn" class="btn">添加字段</button>
+        <button type="submit" class="btn btn-primary">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 悬浮使用说明按钮 -->
+<div class="floating-help">
+  <a href="/help" class="help-button" title="使用说明">
+    <span class="help-icon">?</span>
+  </a>
+</div>
+
+<%- include('partials/footer') %>

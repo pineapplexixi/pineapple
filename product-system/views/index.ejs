@@ -1,0 +1,133 @@
+<%- include('partials/header') %>
+
+<section class="search-section">
+  <h2>产品搜索</h2>
+  <form action="/" method="GET" class="search-form">
+    <input 
+      type="text" 
+      name="q" 
+      placeholder="输入产品型号、分类或其他信息..." 
+      value="<%= query %>"
+      class="search-input"
+      autocomplete="off"
+    >
+    <button type="submit" class="search-button">搜索</button>
+  </form>
+</section>
+
+<section class="products-section">
+  <div class="products-header">
+    <h2>产品列表 (<%= products.length %>)</h2>
+    <button id="addProductBtn" class="btn btn-primary">添加产品</button>
+  </div>
+
+  <% if (products.length === 0) { %>
+    <div class="no-products">
+      <p>未找到产品<% if (query) { %>与 "<%= query %>" 匹配<% } %></p>
+    </div>
+  <% } else { %>
+    <div class="products-grid">
+      <% products.forEach(product => { %>
+        <div class="product-card" data-id="<%= product.productId || product.型号 %>">
+          <div class="product-header">
+            <!-- 使用型号和分类作为主标题 -->
+            <h3 class="product-title">
+              <%= product.型号 || product.productId || '未知型号' %>
+              <% if (product.分类) { %> 
+                <span class="product-category-badge"><%= product.分类 %></span>
+              <% } %>
+            </h3>
+            <span class="product-id">型号: <%= product.型号 || product.productId || '未知' %></span>
+          </div>
+          <div class="product-body">
+            <!-- 优先显示分类信息 -->
+            <% if (product.分类 || product.类别 || product.category) { %>
+            <div class="product-attribute highlight">
+              <span class="attribute-name">分类:</span>
+              <span class="attribute-value"><%= product.分类 || product.类别 || product.category %></span>
+            </div>
+            <% } %>
+            
+            <!-- 显示价格信息（如果有） -->
+            <% if (product.价格) { %>
+            <div class="product-attribute highlight price">
+              <span class="attribute-name">价格:</span>
+              <span class="attribute-value"><%= product.价格 %></span>
+            </div>
+            <% } %>
+            
+            <!-- 显示所有其他属性（平铺） -->
+            <% 
+              const skipFields = ['productId', '型号', '分类', '类别', 'category', '价格', 'name'];
+              Object.entries(product).forEach(([key, value]) => {
+                if (!skipFields.includes(key) && value) {
+            %>
+              <div class="product-attribute product-attribute-flat">
+                <span class="attribute-name"><%= key %>:</span>
+                <span class="attribute-value">
+                  <% if (query && value.toString().toLowerCase().includes(query.toLowerCase())) { %>
+                    <%= value.toString().replace(new RegExp(query, 'gi'), match => `<span class="highlight-search">${match}</span>`) %>
+                  <% } else { %>
+                    <%= value %>
+                  <% } %>
+                </span>
+              </div>
+            <% 
+                }
+              });
+            %>
+          </div>
+          <div class="product-footer">
+            <a href="/products/<%= product.productId || product.型号 %>" class="btn btn-view">查看</a>
+            <button class="btn btn-edit" data-id="<%= product.productId || product.型号 %>">编辑</button>
+            <button class="btn btn-delete" data-id="<%= product.productId || product.型号 %>">删除</button>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>
+</section>
+
+<!-- 添加/编辑产品模态框 -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalTitle">添加产品</h2>
+    <form id="productForm">
+      <input type="hidden" id="productId" name="productId">
+      
+      <div class="form-group">
+        <label for="newProductId">产品型号:</label>
+        <input type="text" id="newProductId" name="型号" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="category">产品分类:</label>
+        <input type="text" id="category" name="分类" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="price">价格:</label>
+        <input type="text" id="price" name="价格">
+      </div>
+      
+      <div id="dynamicFields">
+        <!-- 动态字段将在这里添加 -->
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" id="addFieldBtn" class="btn">添加字段</button>
+        <button type="submit" class="btn btn-primary">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 悬浮使用说明按钮 -->
+<div class="floating-help">
+  <a href="/help" class="help-button" title="使用说明">
+    <span class="help-icon">?</span>
+  </a>
+</div>
+
+<%- include('partials/footer') %>

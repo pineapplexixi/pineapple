@@ -1,0 +1,1047 @@
+/* 菠萝主题 - 可爱风格CSS */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --pineapple-yellow: #FFD700;
+  --pineapple-dark: #D4AF37;
+  --pineapple-green: #4CAF50;
+  --pineapple-leaf: #228B22;
+  --pineapple-light: #FFF8DC;
+  --pineapple-accent: #FF6B6B;
+  --pineapple-text: #333333;
+  --pineapple-shadow: rgba(0, 0, 0, 0.1);
+  --card-border-radius: 15px;
+}
+
+body {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--pineapple-text);
+  background-color: #f9f7f2;
+  background-image: linear-gradient(135deg, #f9f7f2 25%, #f5f3e8 25%, #f5f3e8 50%, #f9f7f2 50%, #f9f7f2 75%, #f5f3e8 75%, #f5f3e8 100%);
+  background-size: 40px 40px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+a {
+  color: var(--pineapple-green);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--pineapple-leaf);
+  text-decoration: none;
+}
+
+/* 按钮样式 */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background-color: #f1f1f1;
+  color: var(--pineapple-text);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px var(--pineapple-shadow);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  background-color: #e9e9e9;
+}
+
+.btn-primary {
+  background-color: var(--pineapple-yellow);
+  color: #333;
+}
+
+.btn-primary:hover {
+  background-color: var(--pineapple-dark);
+}
+
+.btn-danger {
+  background-color: var(--pineapple-accent);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #ff5252;
+}
+
+.btn-view {
+  background-color: var(--pineapple-green);
+  color: white;
+}
+
+.btn-view:hover {
+  background-color: var(--pineapple-leaf);
+}
+
+.btn-edit {
+  background-color: var(--pineapple-yellow);
+  color: #333;
+}
+
+.btn-edit:hover {
+  background-color: var(--pineapple-dark);
+}
+
+.btn-delete {
+  background-color: #f7f7f7;
+  color: #777;
+}
+
+.btn-delete:hover {
+  background-color: var(--pineapple-accent);
+  color: white;
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--pineapple-text);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: var(--pineapple-yellow);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25);
+  outline: none;
+}
+
+.form-actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 头部样式 */
+.header {
+  background-color: var(--pineapple-yellow);
+  color: var(--pineapple-text);
+  padding: 15px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  color: var(--pineapple-text);
+  font-size: 24px;
+  font-weight: 800;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logo a:before {
+  content: "🍍";
+  margin-right: 10px;
+  font-size: 28px;
+}
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+}
+
+.main-nav li {
+  margin-left: 25px;
+}
+
+.main-nav a {
+  color: var(--pineapple-text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  position: relative;
+}
+
+.main-nav a:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--pineapple-text);
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover:after {
+  width: 100%;
+}
+
+/* 主内容区域 */
+main.container {
+  padding: 30px 15px;
+  min-height: calc(100vh - 130px);
+}
+
+/* 底部样式 */
+.footer {
+  background-color: var(--pineapple-dark);
+  color: #333;
+  padding: 25px 0;
+  text-align: center;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 搜索部分 */
+.search-section {
+  margin-bottom: 35px;
+  background-color: white;
+  padding: 25px;
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 5px 20px var(--pineapple-shadow);
+  border-top: 5px solid var(--pineapple-yellow);
+}
+
+.search-form {
+  display: flex;
+  gap: 15px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: var(--pineapple-yellow);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25);
+  outline: none;
+}
+
+.search-button {
+  background-color: var(--pineapple-yellow);
+  color: var(--pineapple-text);
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: var(--pineapple-dark);
+  transform: translateY(-2px);
+}
+
+/* 产品列表 */
+.products-section {
+  background-color: white;
+  padding: 25px;
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 5px 20px var(--pineapple-shadow);
+}
+
+.products-section h2 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.products-section h2:after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  bottom: -8px;
+  left: 0;
+  background-color: var(--pineapple-yellow);
+}
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.no-products {
+  text-align: center;
+  padding: 50px 0;
+  color: #888;
+}
+
+.no-products p {
+  font-size: 18px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+  box-shadow: 0 5px 15px var(--pineapple-shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.product-header {
+  padding: 20px;
+  background-color: var(--pineapple-yellow);
+  color: var(--pineapple-text);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.product-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--pineapple-text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-category-badge {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: var(--pineapple-text);
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-id {
+  display: block;
+  font-size: 15px;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+.product-body {
+  padding: 20px;
+  flex: 1;
+  border-bottom: 1px solid #f0f0f0;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* 突出显示款号和分类 */
+.product-attribute.highlight {
+  font-weight: 700;
+  background-color: #FFF8E1;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border-left: 3px solid var(--pineapple-dark);
+}
+
+/* 突出显示价格 */
+.product-attribute.highlight.price {
+  background-color: #E8F5E9;
+  border-left: 3px solid var(--pineapple-green);
+}
+
+.product-attribute {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.attribute-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #555;
+  font-size: 14px;
+}
+
+.attribute-value {
+  font-size: 15px;
+}
+
+.product-footer {
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.product-footer .btn {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+/* 产品详情页 */
+.product-detail {
+  background-color: white;
+  padding: 30px;
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 5px 20px var(--pineapple-shadow);
+}
+
+.back-link {
+  margin-bottom: 25px;
+}
+
+.product-detail .product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  background-color: var(--pineapple-yellow);
+  color: var(--pineapple-text);
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+
+.product-detail .product-header h2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.product-info {
+  padding: 0 15px;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.info-item.highlight {
+  background-color: #FFF8E1;
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 3px solid var(--pineapple-dark);
+}
+
+.info-item.highlight.price {
+  background-color: #E8F5E9;
+  border-left: 3px solid var(--pineapple-green);
+}
+
+.info-label {
+  font-weight: 600;
+  min-width: 150px;
+  color: #555;
+}
+
+.info-value {
+  flex: 1;
+  font-size: 16px;
+}
+
+/* 导入导出页面 */
+.import-export-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.import-box, .export-box {
+  background-color: white;
+  padding: 25px;
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 5px 15px var(--pineapple-shadow);
+  border-top: 5px solid var(--pineapple-yellow);
+}
+
+.import-notes, .export-notes {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.import-notes h4, .export-notes h4 {
+  color: var(--pineapple-text);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.import-notes ul, .export-notes ul {
+  padding-left: 20px;
+}
+
+.import-notes li, .export-notes li {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+}
+
+.alert-success {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #C8E6C9;
+}
+
+.alert-error {
+  background-color: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #FFCDD2;
+}
+
+
+
+
+
+/* 导入导出页面的Excel模板表格样式 */
+.template-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.template-table th, 
+.template-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.template-table th {
+  background-color: var(--pineapple-yellow);
+  color: var(--pineapple-text);
+  font-weight: 600;
+}
+
+.template-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.template-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.excel-template {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px dashed #ddd;
+}
+
+.excel-template h4 {
+  margin-bottom: 10px;
+  color: var(--pineapple-text);
+}
+
+
+
+
+
+
+
+/* 错误页面 */
+.error-container {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 5px 20px var(--pineapple-shadow);
+}
+
+.error-message {
+  margin: 25px 0 35px;
+  color: var(--pineapple-accent);
+  font-size: 18px;
+}
+
+/* 模态框 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 7% auto;
+  padding: 30px;
+  border-radius: var(--card-border-radius);
+  width: 70%;
+  max-width: 700px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 28px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.3s;
+}
+
+.close:hover {
+  color: var(--pineapple-accent);
+}
+
+/* 字段组 */
+.field-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field-group input:first-child {
+  flex: 0.7;
+}
+
+.field-group input:nth-child(2) {
+  flex: 1.3;
+}
+
+.field-group button {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.field-group button:hover {
+  color: var(--pineapple-accent);
+  background-color: #f8f8f8;
+}
+
+/* 悬浮帮助按钮 */
+.floating-help {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 900;
+}
+
+.help-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: var(--pineapple-yellow);
+  color: var(--pineapple-text);
+  font-weight: bold;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.help-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+  background-color: var(--pineapple-dark);
+}
+
+.help-icon {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* 使用说明页面 */
+.help-section {
+  background-color: white;
+  padding: 30px;
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 5px 20px var(--pineapple-shadow);
+}
+
+.help-header {
+  padding: 25px;
+  background-color: var(--pineapple-yellow);
+  color: var(--pineapple-text);
+  margin-bottom: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.help-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 25px;
+}
+
+.help-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px var(--pineapple-shadow);
+  border-left: 5px solid var(--pineapple-yellow);
+}
+
+.help-card h3 {
+  color: var(--pineapple-text);
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.help-card ul {
+  padding-left: 20px;
+}
+
+.help-card li {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .help-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .import-export-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-detail .product-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .product-detail .product-actions {
+    margin-top: 20px;
+  }
+  
+  .info-item {
+    flex-direction: column;
+  }
+  
+  .info-label {
+    margin-bottom: 8px;
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: 10% auto;
+    padding: 20px;
+  }
+  
+  .search-form {
+    flex-direction: column;
+  }
+  
+  .search-button {
+    width: 100%;
+  }
+  
+  .floating-help {
+    right: 15px;
+    bottom: 15px;
+  }
+  
+  .help-button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* 自动搜索文本高亮 */
+.highlight-search {
+  background-color: #FFF9C4;
+  padding: 0 3px;
+  border-radius: 3px;
+}
+
+/* 页面过渡动画 */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f8f8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+
+
+
+
+
+
+
+/* 产品卡片改进 - 移除滚动条，自动调整高度 */
+.product-body {
+  padding: 20px;
+  flex: 1;
+  border-bottom: 1px solid #f0f0f0;
+  height: auto;
+  max-height: none;
+  overflow-y: visible;
+}
+
+/* 缩减卡片内部间距，节省空间 */
+.product-attribute {
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.attribute-name {
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: #555;
+  font-size: 14px;
+}
+
+.attribute-value {
+  font-size: 14px;
+}
+
+/* 固定卡片宽度和高度，使页面更整齐 */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 添加卡片内容的省略显示 */
+.product-attribute-collapsed {
+  max-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 卡片扩展按钮 */
+.expand-button {
+  text-align: center;
+  padding: 5px;
+  margin-top: 5px;
+  background: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #666;
+}
+
+.expand-button:hover {
+  background: #e0e0e0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 改进的产品卡片样式 - 完全扁平化显示所有内容 */
+.product-body {
+  padding: 15px;
+  flex: 1;
+  border-bottom: 1px solid #f0f0f0;
+  height: auto;
+  max-height: none;
+  overflow-y: visible;
+}
+
+/* 所有属性平铺显示，不使用折叠 */
+.product-attribute-flat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 0;
+  margin-bottom: 0;
+  border-bottom: 1px dashed #f0f0f0;
+}
+
+.product-attribute-flat:last-child {
+  border-bottom: none;
+}
+
+.product-attribute-flat .attribute-name {
+  min-width: 80px;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.product-attribute-flat .attribute-value {
+  flex: 1;
+}
+
+/* 强调分类和价格 */
+.product-attribute.highlight {
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* 产品卡片 */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 100%;
+  position: relative;
+}
+
+.product-header {
+  padding: 15px;
+}
+
+.product-title {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.product-category-badge {
+  font-size: 13px;
+  padding: 2px 8px;
+}
+
+.product-id {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* 更紧凑的底部按钮 */
+.product-footer {
+  padding: 10px 15px;
+  display: flex;
+  gap: 8px;
+}
+
+.product-footer .btn {
+  font-size: 13px;
+  padding: 7px 0;
+}
+
+/* 产品详情页改进 */
+.product-detail .info-item {
+  display: flex;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 0;
+}
+
+.product-detail .info-item.highlight {
+  border-radius: 8px;
+  margin-bottom: 15px;
+}

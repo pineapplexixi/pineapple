@@ -1,0 +1,446 @@
+/* =================================================
+   基本样式重置和全局设置
+   ================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Baloo 2', 'Microsoft YaHei', sans-serif;
+}
+
+body {
+    background-color: #fff5e6;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =================================================
+   动画定义
+   ================================================= */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(10deg); }
+}
+
+/* =================================================
+   页面标题和头部样式
+   ================================================= */
+.header {
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.header-title {
+    color: #ff6b6b;
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(90deg, #ff9a9e, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 10px 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.pineapple-icon {
+    font-size: 30px;
+    margin: 0 15px;
+    animation: bounce 2s infinite ease-in-out;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.orange-icon {
+    font-size: 28px;
+    margin: 0 15px;
+    animation: float 3s infinite ease-in-out;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* =================================================
+   主容器和卡片样式
+   ================================================= */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    flex: 1;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: linear-gradient(135deg, #fff, #fff9e6);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+    border-top: 5px solid transparent;
+    border-image: linear-gradient(to right, #ff9a9e, #ffd369);
+    border-image-slice: 1;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6b6b;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 24px;
+}
+
+.corner-pineapple {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 24px;
+    opacity: 0.5;
+}
+
+/* =================================================
+   计算器样式
+   ================================================= */
+.calculator-screen {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 30px;
+    text-align: right;
+    margin-bottom: 15px;
+    border: 2px solid #ffde59;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* 按钮基本样式 */
+.btn {
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #ffffff;
+    color: #333;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 不同类型的按钮样式 */
+.btn-number {
+    background-color: white;
+}
+
+.btn-operator {
+    background-color: #ffe066;
+    color: #333;
+    font-weight: bold;
+}
+
+.btn-equals {
+    background-color: #ff6b6b;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-clear, .btn-delete {
+    background-color: #f8f9fa;
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+/* =================================================
+   输入表单样式
+   ================================================= */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.input-icon {
+    margin-right: 10px;
+    color: #ffb347;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ffde59;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f5f5f5;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.25);
+}
+
+/* =================================================
+   尺寸转换样式
+   ================================================= */
+.dimension-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dimension-label {
+    width: 80px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.dimension-arrow {
+    color: #ffb347;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.dimension-input {
+    flex-grow: 1;
+    display: flex;
+    gap: 5px;
+}
+
+.dimension-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 2px solid #ffde59;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+.dimension-input select {
+    padding: 10px;
+    border: 2px solid #ffde59;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+/* =================================================
+   辅助元素样式
+   ================================================= */
+.conversion-rule {
+    background-color: rgba(255, 222, 89, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 3px solid #ffde59;
+}
+
+.result-box {
+    background-color: rgba(255, 222, 89, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+    border: 2px dashed #ffde59;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clear-btn {
+    display: flex;
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: #ffde59;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.clear-btn:hover {
+    background-color: #ffcd00;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.note {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.info-badge {
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffde59;
+    color: #333;
+    border-radius: 50%;
+    font-size: 14px;
+    margin-left: 5px;
+    cursor: help;
+    position: relative;
+}
+
+.info-badge:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* =================================================
+   页脚样式
+   ================================================= */
+.footer-container {
+    width: 100%;
+    margin-top: auto;
+    padding: 20px 0;
+    background-color: #ffde59;
+    border-top: 3px dashed #ff6b6b;
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-logo {
+    font-size: 40px;
+    margin-bottom: 10px;
+    animation: bounce 3s infinite ease-in-out;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.footer-author {
+    font-weight: bold;
+    color: #ff6b6b;
+}
+
+/* =================================================
+   响应式设计
+   ================================================= */
+@media (max-width: 1000px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-title {
+        font-size: 28px;
+    }
+    
+    .pineapple-icon, .orange-icon {
+        font-size: 22px;
+        margin: 0 8px;
+    }
+    
+    .card-title {
+        font-size: 20px;
+    }
+    
+    .calculator-screen {
+        font-size: 24px;
+        height: 60px;
+    }
+    
+    .btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+}

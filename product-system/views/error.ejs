@@ -1,0 +1,103 @@
+<%- include('partials/header') %>
+
+<section class="import-export-section">
+  <h2>产品数据导入/导出</h2>
+  
+  <% if (message) { %>
+    <div class="alert alert-success">
+      <%= message %>
+    </div>
+  <% } %>
+  
+  <% if (error) { %>
+    <div class="alert alert-error">
+      <%= error %>
+    </div>
+  <% } %>
+  
+  <div class="import-export-container">
+    <div class="import-box">
+      <h3>导入Excel数据</h3>
+      <p>上传Excel文件导入产品数据。</p>
+      
+      <form action="/import-export/import" method="POST" enctype="multipart/form-data" class="import-form">
+        <div class="form-group">
+          <label for="excelFile">选择Excel文件:</label>
+          <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">导入数据</button>
+      </form>
+      
+      <div class="import-notes">
+        <h4>导入说明:</h4>
+        <ul>
+          <li>Excel第一行应为列标题，如: 型号、分类、价格等</li>
+          <li>系统会自动将第一列识别为型号/款号</li>
+          <li>每行数据代表一个产品</li>
+          <li>如果产品型号已存在，将更新现有产品</li>
+        </ul>
+      </div>
+      
+      <div class="excel-template">
+        <h4>Excel模板示例:</h4>
+        <table class="template-table">
+          <thead>
+            <tr>
+              <th>型号</th>
+              <th>分类</th>
+              <th>价格</th>
+              <th>功能</th>
+              <th>颜色</th>
+              <th>材质</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>A001</td>
+              <td>阳具</td>
+              <td>199</td>
+              <td>震动</td>
+              <td>肤色</td>
+              <td>硅胶</td>
+            </tr>
+            <tr>
+              <td>B002</td>
+              <td>倒模</td>
+              <td>299</td>
+              <td>加热</td>
+              <td>粉色</td>
+              <td>TPE</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="export-box">
+      <h3>导出产品数据</h3>
+      <p>将所有产品数据导出为Excel文件。</p>
+      
+      <a href="/import-export/export" class="btn btn-primary">导出所有产品</a>
+      
+      <div class="export-notes">
+        <h4>导出说明:</h4>
+        <ul>
+          <li>导出文件包含所有产品及其所有字段</li>
+          <li>导出文件可以修改后重新导入</li>
+          <li>导出的Excel会按照型号、分类、价格等重要字段排序</li>
+          <li>如果没有产品，将导出一个带有默认标题的模板</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 悬浮使用说明按钮 -->
+<div class="floating-help">
+  <a href="/help" class="help-button" title="使用说明">
+    <span class="help-icon">?</span>
+  </a>
+</div>
+
+<%- include('partials/footer') %>

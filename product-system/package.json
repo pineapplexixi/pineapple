@@ -1,0 +1,21 @@
+{
+    "name": "product-management-system",
+    "version": "1.0.0",
+    "description": "轻量级产品管理系统，支持多人查询，少量修改",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js",
+      "dev": "nodemon app.js"
+    },
+    "dependencies": {
+      "body-parser": "^1.20.2",
+      "ejs": "^3.1.9",
+      "express": "^4.18.2",
+      "exceljs": "^4.3.0",
+      "multer": "^1.4.5-lts.1",
+      "fs-extra": "^11.1.1"
+    },
+    "devDependencies": {
+      "nodemon": "^3.0.1"
+    }
+  }

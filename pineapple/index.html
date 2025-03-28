@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利润计算器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Varela+Round&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 页头 -->
+        <header>
+            <div class="pineapple-icon">🍍</div>
+            <div>
+                <h1><span>简</span><span>漏</span><span>利</span><span>润</span><span>计</span><span>算</span><span>器</span></h1>
+                <p class="title-description">快速计算和管理产品的利润</p>
+            </div>
+            <div class="pineapple-icon">🍍</div>
+        </header>
+        
+        <!-- 状态栏 - 包含离线模式指示器和使用指南链接 -->
+        <div class="status-bar">
+            <div id="connectionStatus" class="status-indicator status-offline"></div>
+            <span id="connectionText">离线模式</span>
+            <a href="guide.html" class="guide-link">
+                <i class="fas fa-book"></i> 使用指南
+            </a>
+            <div class="pineapple-crown">🍍</div>
+        </div>
+        
+        <!-- 主内容区 - 双列布局 -->
+        <div class="two-column">
+            <!-- 左侧：产品管理 -->
+            <div class="card card-appear">
+                <div class="card-header">
+                    <i class="fas fa-box"></i> 成本产品库
+                    <span class="pineapple-mini">🍍</span>
+                </div>
+                <div class="card-content">
+                    <!-- 工具栏 -->
+                    <div class="toolbar">
+                        <button id="refreshBtn" class="secondary-btn">
+                            <i class="fas fa-sync-alt"></i> 刷新
+                        </button>
+                        <button id="saveBtn" class="primary-btn">
+                            <i class="fas fa-save"></i> 保存
+                        </button>
+                        <button id="importBtn" class="secondary-btn">
+                            <i class="fas fa-file-import"></i> 导入
+                        </button>
+                        <button id="exportBtn" class="secondary-btn">
+                            <i class="fas fa-file-export"></i> 导出
+                        </button>
+                    </div>
+                    
+                    <!-- 搜索框 -->
+                    <div class="form-group">
+                        <label for="productSearch"><span class="pineapple-dot">🍍</span> 搜索产品</label>
+                        <input type="text" id="productSearch" placeholder="输入产品型号...">
+                    </div>
+                    
+                    <!-- 添加产品 -->
+                    <div class="form-group">
+                        <label><span class="pineapple-dot">🍍</span> 添加新产品</label>
+                        <div class="flex gap-10">
+                            <input type="text" id="newProductId" placeholder="产品型号">
+                            <input type="number" id="newProductCost" placeholder="成本" step="0.01">
+                            <button id="addProductBtn" class="primary-btn">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 产品表格容器 -->
+                    <div class="product-table-container">
+                        <table class="product-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-tag"></i> 产品型号</th>
+                                    <th><i class="fas fa-dollar-sign"></i> 成本</th>
+                                    <th><i class="fas fa-cogs"></i> 操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- 产品数据会在这里动态生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- 装饰菠萝 -->
+                    <div class="corner-pineapple bottom-right"></div>
+                </div>
+            </div>
+            
+            <!-- 右侧：计算器 -->
+            <div class="card card-appear">
+                <div class="card-header">
+                    <i class="fas fa-calculator"></i> 利润计算器
+                    <span class="pineapple-mini">🍍</span>
+                </div>
+                <div class="card-content">
+                    <!-- 标签页 -->
+                    <div class="tabs">
+                        <button id="priceTabBtn" class="tab-btn active">售价计算利润</button>
+                        <button id="rateTabBtn" class="tab-btn">加成率计算售价</button>
+                        <button id="marginTabBtn" class="tab-btn">利润率计算售价</button>
+                    </div>
+                    
+                    <!-- 加成率说明 -->
+                    <div class="markup-info">
+                        <i class="fas fa-magic"></i>
+                        <div>
+                            <strong>加成率</strong> = (价格-成本)/成本 × 100%，直观反映加价程度
+                            <br>
+                            <strong>利润率</strong> = (价格-成本)/价格 × 100%，反映利润占售价比例
+                            <br>
+                            <small>电商常用加成率定价，财务分析常用利润率</small>
+                        </div>
+                        <span class="pineapple-mini right">🍍</span>
+                    </div>
+                    
+                    <!-- 售价计算利润标签页内容 -->
+                    <div id="priceTab" class="tab-content active">
+                        <div class="form-group">
+                            <label for="productInput"><span class="pineapple-dot">🍍</span> 产品</label>
+                            <div class="search-container">
+                                <input type="text" id="productInput" placeholder="输入产品型号...">
+                                <div id="priceSearchResults" class="search-results"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="costInput"><span class="pineapple-dot">🍍</span> 成本 (¥)</label>
+                            <input type="number" id="costInput" placeholder="0.00" step="0.01">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="priceInput"><span class="pineapple-dot">🍍</span> 售价 (¥)</label>
+                            <input type="number" id="priceInput" placeholder="0.00" step="0.01">
+                        </div>
+                        
+                        <div class="pineapple-divider"></div>
+                        
+                        <div class="result-display">
+                            <div class="result-label">利润</div>
+                            <div id="profitValue" class="result-value">0.00</div>
+                            
+                            <div class="result-label">加成率</div>
+                            <div id="profitRateValue" class="result-value">0.00%</div>
+                            
+                            <div class="result-label">利润率</div>
+                            <div id="profitMarginValue" class="result-value">0.00%</div>
+                            
+                            <div class="pineapple-result-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 加成率计算售价标签页内容 -->
+                    <div id="rateTab" class="tab-content">
+                        <div class="form-group">
+                            <label for="productRateInput"><span class="pineapple-dot">🍍</span> 产品</label>
+                            <div class="search-container">
+                                <input type="text" id="productRateInput" placeholder="输入产品型号...">
+                                <div id="rateSearchResults" class="search-results"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="rateCostInput"><span class="pineapple-dot">🍍</span> 成本 (¥)</label>
+                            <input type="number" id="rateCostInput" placeholder="0.00" step="0.01" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="targetRateInput"><span class="pineapple-dot">🍍</span> 目标加成率 (%)</label>
+                            <input type="number" id="targetRateInput" placeholder="0.00" step="0.01">
+                        </div>
+                        
+                        <div class="pineapple-divider"></div>
+                        
+                        <div class="result-display">
+                            <div class="result-label">建议售价</div>
+                            <div id="suggestedPriceValue" class="result-value">0.00</div>
+                            
+                            <div class="result-label">预计利润</div>
+                            <div id="expectedProfitValue" class="result-value">0.00</div>
+                            
+                            <div class="result-label">预计利润率</div>
+                            <div id="expectedMarginValue" class="result-value">0.00%</div>
+                            
+                            <div class="pineapple-result-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 利润率计算售价标签页内容 -->
+                    <div id="marginTab" class="tab-content">
+                        <div class="form-group">
+                            <label for="productMarginInput"><span class="pineapple-dot">🍍</span> 产品</label>
+                            <div class="search-container">
+                                <input type="text" id="productMarginInput" placeholder="输入产品型号...">
+                                <div id="marginSearchResults" class="search-results"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="marginCostInput"><span class="pineapple-dot">🍍</span> 成本 (¥)</label>
+                            <input type="number" id="marginCostInput" placeholder="0.00" step="0.01" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="targetMarginInput"><span class="pineapple-dot">🍍</span> 目标利润率 (%)</label>
+                            <input type="number" id="targetMarginInput" placeholder="0.00" step="0.01">
+                        </div>
+                        
+                        <div class="pineapple-divider"></div>
+                        
+                        <div class="result-display">
+                            <div class="result-label">建议售价</div>
+                            <div id="marginPriceValue" class="result-value">0.00</div>
+                            
+                            <div class="result-label">预计利润</div>
+                            <div id="marginProfitValue" class="result-value">0.00</div>
+                            
+                            <div class="result-label">对应加成率</div>
+                            <div id="correspondingRateValue" class="result-value">0.00%</div>
+                            
+                            <div class="pineapple-result-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 装饰菠萝 -->
+                    <div class="corner-pineapple bottom-left"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 作者签名 -->
+        <div class="pineapple-signature">
+            <div class="signature-divider">
+                <span class="pineapple-dots">🍍 🍍 🍍</span>
+            </div>
+            <div class="signature-content">
+                <div class="signature-icon">🍍</div>
+                <div class="signature-text">
+                    <p>菠萝祝你早日爆单</p>
+                    <p class="signature-author">by 菠萝科技团队 © 2025</p>
+                </div>
+                <div class="signature-icon">🍍</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 模态框：编辑产品 -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span><span class="pineapple-mini">🍍</span> 编辑产品</span>
+                <button id="closeEditModal" class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="editProductId">产品型号</label>
+                    <input type="text" id="editProductId" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="editProductCost">成本 (¥)</label>
+                    <input type="number" id="editProductCost" step="0.01">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelEdit" class="secondary-btn">取消</button>
+                <button id="saveEdit" class="primary-btn">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 模态框：导入数据 -->
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span><span class="pineapple-mini">🍍</span> 导入数据</span>
+                <button id="closeImportModal" class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="importData">请粘贴JSON数据</label>
+                    <textarea id="importData" rows="10" style="border-radius: 15px;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelImport" class="secondary-btn">取消</button>
+                <button id="confirmImport" class="primary-btn">导入</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 模态框：导出数据 -->
+    <div id="exportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span><span class="pineapple-mini">🍍</span> 导出数据</span>
+                <button id="closeExportModal" class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exportData">复制以下JSON数据</label>
+                    <textarea id="exportData" rows="10" style="border-radius: 15px;" readonly></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelExport" class="secondary-btn">取消</button>
+                <button id="copyExport" class="primary-btn">复制到剪贴板</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast 通知 -->
+    <div id="toast" class="toast success">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+        <span class="pineapple-mini">🍍</span>
+    </div>
+    
+    <!-- 装饰元素 -->
+    <div class="pineapple-decoration large" style="top: 120px; right: 50px;"></div>
+    <div class="pineapple-decoration medium" style="bottom: 80px; left: 30px;"></div>
+    <div class="pineapple-decoration small" style="top: 300px; left: 40px;"></div>
+    <div class="pineapple-decoration small" style="bottom: 120px; right: 60px;"></div>
+    
+    <!-- 可折叠侧边注意事项面板 - 新增功能 -->
+    <div class="side-notes-panel" id="sideNotesPanel">
+        <div class="side-notes-tab">
+            <i class="fas fa-lightbulb"></i>
+            <span>计算注意事项</span>
+        </div>
+        <div class="side-notes-content">
+            <div class="notes-header">
+                <span><i class="fas fa-lightbulb"></i> 计算注意事项</span>
+                <button class="notes-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="notes-body">
+                <!-- 注意事项1: 基本计算公式 -->
+                <div class="note-item">
+                    <h4><i class="fas fa-exclamation-circle"></i> 加成率与利润率区别</h4>
+                    <p>加成率 = (售价-成本)/成本 × 100%，无上限</p>
+                    <p>利润率 = (售价-成本)/售价 × 100%，上限为100%</p>
+                </div>
+                
+                <!-- 注意事项2: 计算公式转换 -->
+                <div class="note-item">
+                    <h4><i class="fas fa-calculator"></i> 计算公式转换</h4>
+                    <p>售价 = 成本 × (1 + 加成率/100)</p>
+                    <p>售价 = 成本 ÷ (1 - 利润率/100)</p>
+                </div>
+                
+                <!-- 注意事项3: 倒模产品特别注意事项 - 可根据需要修改这部分内容 -->
+                <div class="note-item">
+                    <h4><i class="fas fa-exclamation-triangle"></i> 倒模产品计算规则（已经算好了)</h4>
+                    <p><strong>计价规则：</strong></p>
+                    <ul class="notes-list">
+                        <li>非功能性倒模（单色）不带骨架：克重×0.016，不含纸箱</li>
+                        <li>非功能性倒模（单色）带骨架：克重×0.017，不含纸箱</li>
+                        <li>小名器：克重×0.018，不含纸箱</li>
+                    </ul>
+                    <p><strong>发货说明：</strong></p>
+                    <ul class="notes-list">
+                        <li>倒模成本不包含邮费</li>
+                        <li>纸箱费用（已包含在成本）：一口价不收取纸箱费</li>
+                        <li>其他倒模按重量收费（已包含在成本）：4500g以下+2元，4500g-10000g+4元，10000g-12000g+7.5元</li>
+                    </ul>
+                    <p><strong>退换政策：</strong></p>
+                    <ul class="notes-list">
+                        <li>所有定制功能的退货收取功能费用</li>
+                        <li>特殊定制产品收取整个产品费用且不退换货（如超松关节、乳房切掉、胸部注水、乳头磨平、脖子封口等）</li>
+                    </ul>
+                </div>
+                
+                <!-- 注意事项4: 行业参考值 -->
+                <div class="note-item">
+                    <h4><i class="fas fa-info-circle"></i> 常见行业参考值</h4>
+                    <p>服装类：加成率通常70%-150%</p>
+                    <p>电子产品：加成率通常20%-60%</p>
+                    <p>手工艺品：加成率通常100%-200%</p>
+                </div>
+                
+                <!-- 可以在此处添加更多注意事项 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 悬浮使用指南按钮 -->
+    <a href="guide.html" class="floating-guide-btn" title="查看使用指南">
+        <i class="fas fa-book"></i>
+        <span class="guide-tooltip">使用指南</span>
+    </a>
+    
+    <script src="script.js"></script>
+</body>
+</html>
